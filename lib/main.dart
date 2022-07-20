@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,11 +21,16 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('Building MainPage');
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Data Here'),
-      ),
-      body: const Screen2(),
+    return ChangeNotifierProvider(
+      create: (context) => DataManager(),
+      builder: (context, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(Provider.of<DataManager>(context).name),
+          ),
+          body: const Screen2(),
+        );
+      },
     );
   }
 }
@@ -60,7 +66,7 @@ class Screen4 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Data Here'),
+          Text(Provider.of<DataManager>(context).name),
           ElevatedButton(
             onPressed: () {},
             child: const Text('Change data'),
@@ -77,4 +83,6 @@ class DataManager extends ChangeNotifier {
     _data = data;
     notifyListeners();
   }
+
+  String get name => _data;
 }
