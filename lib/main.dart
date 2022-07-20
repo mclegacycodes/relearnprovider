@@ -70,3 +70,11 @@ class Screen4 extends StatelessWidget {
     );
   }
 }
+
+class DataManager extends ChangeNotifier {
+  String _data = 'John Rambo';
+  void changeData(String data) {
+    _data = data;
+    notifyListeners();
+  }
+}
